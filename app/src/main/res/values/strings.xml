@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Contact List</string>
+    <string name="save_button">Save</string>
+    <string name="cell_phone">Cell Phone</string>
+    <string name="enter_street_address">Enter Street Address</string>
+    <string name="change">Change</string>
+    <string name="contact">Contact:</string>
+    <string name="address">Address:</string>
+    <string name="state">State</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="home_phone">Home Phone</string>
+</resources>
