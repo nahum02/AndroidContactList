@@ -1,8 +1,11 @@
 package com.example.mycontactlist;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,60 @@ public class ContactSettingsActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        locationButton();
+        settingButton();
+        ListButton();
+    }
+
+    private void settings() {
+        String sortBy = getSharedPreferences("ContactListPreferences",
+                Context.MODE_PRIVATE).getString("sortfield", "contactname");
+
+        String orderBy = getSharedPreferences("ContactListPreferences",
+                Context.MODE_PRIVATE).getString("sortorder", "ASC");
+
+        RadioButton rbName = findViewById(R.id.radioName);
+        RadioButton rbCity = findViewById(R.id.radioCity);
+        RadioButton rbBirthday = findViewById(R.id.radioBirthday);
+
+        if(sortBy.equalsIgnoreCase("contactname")){
+            rbName.setChecked(true);
+        }
+
+        else if(sortBy.equalsIgnoreCase("city")){
+            rbCity.setChecked(true);
+        }
+
+        else {
+            rbBirthday.setChecked(true);
+        }
+
+        RadioButton rbAsc = findViewById(R.id.radioAscending);
+        RadioButton rbDes = findViewById(R.id.radioDescending);
+
+        if(orderBy.equalsIgnoreCase("ASC")){
+            rbAsc.setChecked(true);
+        }
+
+        else {
+            rbDes.setChecked(true);
+        }
+
+
+    }
+
+    private void sortByButton() {
+        RadioGroup sortBy = findViewById(R.id.radioGroupSortOrder);
+        sortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rbName = findViewById(R.id.radioName);
+                RadioButton City = findViewById(R.id.radioCity);
+
+            }
+        });
     }
 
     private void locationButton() {
@@ -35,11 +92,7 @@ public class ContactSettingsActivity extends AppCompatActivity {
 
     private void settingButton() {
         ImageButton ibList = findViewById(R.id.imageButtonSetting);
-        ibList.setOnClickListener(v -> {
-            Intent intent = new Intent(ContactSettingsActivity.this, ContactSettingsActivity.class);
-            intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
+        ibList.setEnabled(false);
     }
 
 
