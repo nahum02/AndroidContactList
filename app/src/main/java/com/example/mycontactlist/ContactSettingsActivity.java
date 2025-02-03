@@ -75,7 +75,49 @@ public class ContactSettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rbName = findViewById(R.id.radioName);
-                RadioButton City = findViewById(R.id.radioCity);
+                RadioButton rbCity = findViewById(R.id.radioCity);
+
+                if (rbName.isChecked()){
+                    getSharedPreferences("ContactListPreferences",
+                            Context.MODE_PRIVATE).edit().putString(
+                                    "sortfield", "contactname").apply();
+                }
+
+                else if (rbCity.isChecked()){
+                    getSharedPreferences("ContactListPreferences",
+                            Context.MODE_PRIVATE).edit().putString(
+                                    "sortfield", "city").apply();
+
+                }
+
+                else {
+                    getSharedPreferences("ContactListPreferences",
+                            Context.MODE_PRIVATE).edit().putString(
+                                    "sortfield", "city").apply();
+                }
+            }
+        });
+    }
+
+
+    public void orderByButton() {
+        RadioGroup orderBy = findViewById(R.id.radioGroupSortBy);
+        orderBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rbAscending = findViewById(R.id.radioAscending);
+                RadioButton rbDescending = findViewById(R.id.radioDescending);
+
+                if(rbAscending.isChecked()){
+                    getSharedPreferences("ContactListPreferences",
+                            Context.MODE_PRIVATE).edit().putString("sortorder", "ASC").apply();
+                }
+
+                else {
+                    getSharedPreferences("ContactListPreferences",
+                            Context.MODE_PRIVATE).edit().putString("sortorder", "DESC").apply();
+                }
 
             }
         });
