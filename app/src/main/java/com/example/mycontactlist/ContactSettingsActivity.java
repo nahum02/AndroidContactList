@@ -107,7 +107,6 @@ public class ContactSettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rbAscending = findViewById(R.id.radioAscending);
-                RadioButton rbDescending = findViewById(R.id.radioDescending);
 
                 if(rbAscending.isChecked()){
                     getSharedPreferences("ContactListPreferences",
