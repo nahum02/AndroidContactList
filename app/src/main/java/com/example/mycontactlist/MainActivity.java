@@ -1,9 +1,13 @@
 package com.example.mycontactlist;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,6 +29,8 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.SaveDateListener {
 
+    private Contact currentContact;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,15 +40,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
 
+
+        });
+        currentContact = new Contact();
         ListButton();
         toggleButton();
         setForEditing(false);
         changeDateButton();
         locationButton();
         settingButton();
+        saveButton();
+        hideKeyBoard();
+        initTextChangedEvents();
     }
+
+
 
     private void changeDateButton(){
         Button changeDate = findViewById(R.id.buttonBirthDay);
@@ -121,10 +134,96 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
 
-
     @Override
     public void didFinishDatePickerDialog(Calendar selectedTime) {
         TextView birthDay = findViewById(R.id.textBirthday);
         birthDay.setText(DateFormat.getDateInstance().format( selectedTime.getTime()));
+        currentContact.setBirthday(selectedTime);
+    }
+
+    private void initTextChangedEvents(){
+        final EditText etContactName = findViewById(R.id.editName);
+        etContactName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setContactName(etContactName.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText etStreetAddress = findViewById(R.id.editAddress);
+        etStreetAddress.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setStreetAddress(etStreetAddress.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void saveButton() {
+        Button saveButton = findViewById(R.id.buttonSave);
+        saveButton.setOnClickListener(v -> {
+            boolean wasSuccessful;
+            ContactDataSource ds = new ContactDataSource(MainActivity.this);
+
+            try {
+                ds.open();
+
+                if(currentContact.getContactID() == -1) {
+                    wasSuccessful = ds.insertContact(currentContact);
+                    int newId = ds.getLastContactID();
+                    currentContact.setContactID(newId);
+                }
+
+
+
+                else {
+                    wasSuccessful = ds.updateContact(currentContact);
+                }
+                ds.close();
+            }
+
+            catch (Exception e) {
+                wasSuccessful = false;
+            }
+
+            if(wasSuccessful){
+                ToggleButton editToggle = findViewById(R.id.toggleButtonEdit);
+                editToggle.toggle();
+                setForEditing(false);
+            }
+
+
+        });
+    }
+
+    private void hideKeyBoard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        EditText editName = findViewById(R.id.editName);
+        imm.hideSoftInputFromWindow(editName.getWindowToken(), 0);
+        EditText editAddress = findViewById(R.id.editAddress);
+        imm.hideSoftInputFromWindow(editAddress.getWindowToken(), 0);
+
     }
 }
