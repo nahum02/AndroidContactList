@@ -59,47 +59,47 @@ public class Contact{
     }
 
     public void setCity(String s){
-        this.city = s;
+        city = s;
     }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setState(String s) {
+        state = s;
     }
 
     public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setZipCode(String z) {
+       zipCode = z;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String pn) {
+       phoneNumber = pn;
     }
 
     public String getCellNumber() {
         return cellNumber;
     }
 
-    public void setCellNumber(String cellNumber) {
-        this.cellNumber = cellNumber;
+    public void setCellNumber(String s) {
+        cellNumber = s;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String e) {
+        email = e;
     }
 
 

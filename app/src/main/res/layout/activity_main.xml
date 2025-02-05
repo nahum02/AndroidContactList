@@ -124,7 +124,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="Enter Name"
-                android:inputType="text"
+                android:inputType="text|textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textContact" />
 
@@ -136,7 +136,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="@string/enter_street_address"
-                android:inputType="text"
+                android:inputType="text|textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textAddress" />
 
@@ -248,7 +248,7 @@
                 android:ems="16"
                 android:hint="Email"
                 android:imeOptions="actionNext"
-                android:inputType="text|textEmailAddress"
+                android:inputType="textEmailAddress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textEmailAddress" />
 

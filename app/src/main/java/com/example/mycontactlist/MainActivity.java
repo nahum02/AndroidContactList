@@ -178,6 +178,123 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             }
         });
+
+        final EditText etCity = findViewById(R.id.editCity);
+        etCity.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setCity(etCity.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText etState = findViewById(R.id.editState);
+        etState.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setState(etState.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText etZipCode = findViewById(R.id.editZipCode);
+        etZipCode.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setZipCode(etZipCode.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText etHomeNumber = findViewById(R.id.editHomePhone);
+        etHomeNumber.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setPhoneNumber(etHomeNumber.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText etcellNumber = findViewById(R.id.editCell);
+        etcellNumber.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setCellNumber(etcellNumber.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText etemail = findViewById(R.id.editEmailAddress);
+        etemail.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                currentContact.setEmail(etemail.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
     }
 
     private void saveButton() {
@@ -193,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     wasSuccessful = ds.insertContact(currentContact);
                     int newId = ds.getLastContactID();
                     currentContact.setContactID(newId);
+
                 }
 
 
@@ -211,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 ToggleButton editToggle = findViewById(R.id.toggleButtonEdit);
                 editToggle.toggle();
                 setForEditing(false);
+
             }
 
 
