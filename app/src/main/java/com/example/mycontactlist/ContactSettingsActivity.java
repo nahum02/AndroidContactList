@@ -29,6 +29,9 @@ public class ContactSettingsActivity extends AppCompatActivity {
         locationButton();
         settingButton();
         ListButton();
+        settings();
+        sortByButton();
+        orderByButton();
     }
 
     private void settings() {
