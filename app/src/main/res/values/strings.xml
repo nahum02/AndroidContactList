@@ -9,4 +9,6 @@
     <string name="state">State</string>
     <string name="zipcode">Zipcode</string>
     <string name="home_phone">Home Phone</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
 </resources>

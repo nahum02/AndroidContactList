@@ -1,23 +1,36 @@
 package com.example.mycontactlist;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -25,6 +38,9 @@ public class ContactListActivity extends AppCompatActivity {
 
     private ArrayList<Contact> contacts;
     ContactAdapter contactAdapter;
+
+
+
 
 
 
@@ -58,6 +74,21 @@ public class ContactListActivity extends AppCompatActivity {
         ListButton();
         initAddContactButton();
         initDeleteSwitch();
+
+
+        BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                double batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+                double levelScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE,0);
+                int batteryPercent = (int) Math.floor(batteryLevel / levelScale * 100);
+                TextView textBatteryState = findViewById(R.id.textViewBattery);
+                textBatteryState.setText(String.valueOf(batteryPercent) + '%');
+            }
+        };
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(batteryReceiver, filter);
 
         String sortBy = getSharedPreferences("ContactListPreferences", Context.MODE_PRIVATE
         ).getString("sortfield","contactname");
@@ -175,6 +206,10 @@ public class ContactListActivity extends AppCompatActivity {
             Toast.makeText(this,"Error retrieving contacts", Toast.LENGTH_LONG).show();
         }
     }
+
+
+
+
 
 
 }
